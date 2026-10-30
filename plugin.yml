@@ -1,0 +1,20 @@
+name: RTPZone
+version: '1.0.0'
+main: com.rtpzone.RTPZonePlugin
+api-version: '1.21'
+author: Developer
+description: Hole-based Random Teleport plugin for Paper 1.21 with slow falling and 3rd person POV camera transition.
+
+commands:
+  rtp:
+    description: Random teleport commands and zone selection
+    usage: /<command> [zone select | zone remove | reload | help]
+    permission: rtpzone.use
+
+permissions:
+  rtpzone.admin:
+    description: Allows selecting and managing the RTP zone and reloading config
+    default: op
+  rtpzone.use:
+    description: Allows entering the RTP hole zone and getting teleported
+    default: true

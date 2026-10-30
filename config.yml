@@ -1,0 +1,110 @@
+# ==============================================================================
+#                      RTPZone Configuration - Paper 1.21
+# ==============================================================================
+
+# RTP Hole Zone Settings
+zone:
+  # Location is automatically set and saved when running /rtp zone select
+  configured: false
+  world: "world"
+  x: 0.0
+  y: 64.0
+  z: 0.0
+  # Detection radius around the zone center (in blocks)
+  radius: 1.8
+  # Vertical height detection range from the top of the hole downward
+  depth-range: 8.0
+
+  # Physical block excavation when running /rtp zone select
+  physical-hole:
+    enabled: true
+    radius: 1               # 1 block radius = 3x3 hole
+    depth: 6                # Depth of the hole dug down
+    hollow-block: "AIR"     # Block to replace hole interior with
+    border-enabled: true    # Create decorative rim around hole
+    border-block: "CRYING_OBSIDIAN"
+
+  # Visual vortex particles in the hole
+  particles:
+    enabled: true
+    particle: "PORTAL"      # PORTAL, REVERSE_PORTAL, SOUL_FIRE_FLAME, END_ROD, etc.
+    secondary-particle: "REVERSE_PORTAL"
+    points-per-ring: 24
+    rings: 4
+
+  # Sounds
+  sounds:
+    enter: "BLOCK_PORTAL_TRAVEL"
+    fall: "ENTITY_ENDERMAN_TELEPORT"
+    ambient: "BLOCK_PORTAL_AMBIENT"
+
+# Teleportation Target Settings (Overworld)
+teleport:
+  # Overworld world name (leave empty to use current world)
+  target-world: "world"
+  # Minimum and maximum distance from spawn (0, 0)
+  min-radius: 500
+  max-radius: 5000
+  # How high above the safe surface to spawn the player (blocks)
+  # Exactly 50 blocks as requested!
+  fall-height-above-ground: 50
+  # Delay (in ticks, 20 ticks = 1 second) while player falls in the hole before teleporting
+  hole-fall-delay-ticks: 35
+  # Max attempts to find a safe location before falling back
+  max-attempts: 30
+  # Blocks where player should NOT land
+  blacklisted-blocks:
+    - "WATER"
+    - "LAVA"
+    - "FIRE"
+    - "SOUL_FIRE"
+    - "CACTUS"
+    - "SWEET_BERRY_BUSH"
+    - "POWDER_SNOW"
+    - "SEAGRASS"
+    - "TALL_SEAGRASS"
+    - "KELP"
+    - "KELP_PLANT"
+    - "VOID_AIR"
+
+# Slow Falling Potion Effect Settings
+effects:
+  # Slow falling duration while descending (seconds)
+  slow-falling-duration: 60
+  # Slow falling amplifier (0 = Slow Falling I)
+  amplifier: 0
+  # Grant temporary fall damage immunity until safely landed
+  protect-fall-damage: true
+
+# Camera & POV Settings
+camera:
+  # Bedrock / Geyser Support:
+  # If Geyser is installed on your Paper server, sends the native Bedrock /camera command
+  # to seamlessly switch Bedrock/Console/Mobile players to 3rd person and back!
+  bedrock-camera-support: true
+  bedrock-third-person-preset: "minecraft:third_person" # or "minecraft:follow_orbit"
+
+  # Java Edition Perspective Support:
+  # Vanilla Java Edition clients control F5 perspective strictly on the client.
+  # When true, shows an on-screen title reminding Java players to press F5,
+  # and automatically welcomes them back upon touching ground.
+  show-f5-prompt: true
+  freefall-title: "§b§l✦ FREEFALLING ✦"
+  freefall-subtitle: "§eSlow falling from 50 blocks! §7(Press F5 for 3rd person)"
+
+  # Landing Settings
+  landing-title: "§a§l✔ SAFE LANDING!"
+  landing-subtitle: "§fPOV returned to first person. Welcome to the wild!"
+  landing-sound: "ENTITY_PLAYER_LEVELUP"
+
+# Plugin Messages
+messages:
+  prefix: "§8[§b§lRTP§3§lZone§8] §r"
+  zone-selected: "§aSuccessfully selected and created the RTP hole area at §e%x%, %y%, %z%§a!"
+  zone-removed: "§cRTP hole area has been removed."
+  no-zone-set: "§cNo RTP hole area is currently set! Use §e/rtp zone select §cto create one."
+  entering-hole: "§dYou stepped into the void hole... Falling into the unknown!"
+  teleporting: "§bTeleporting to a random overworld location..."
+  no-permission: "§cYou do not have permission to execute this command."
+  reloaded: "§aConfiguration reloaded successfully!"
+  teleport-failed: "§cCould not find a safe location after multiple attempts. Please try again."
