@@ -1,0 +1,48 @@
+name: Build RTPZone Plugin
+
+on:
+  push:
+    branches: [ '**' ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Paper Jar
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Auto Organize Project Structure
+        run: |
+          mkdir -p src/main/resources
+          [ -f plugin.yml ] && mv plugin.yml src/main/resources/ || true
+          [ -f config.yml ] && mv config.yml src/main/resources/ || true
+
+          for f in *.java; do
+            if [ -f "$f" ]; then
+              pkg=$(grep -m1 '^package ' "$f" | awk '{print $2}' | tr -d ';')
+              if [ -n "$pkg" ]; then
+                dir="src/main/java/$(echo $pkg | tr '.' '/')"
+                mkdir -p "$dir"
+                mv "$f" "$dir/"
+              fi
+            fi
+          done
+
+      - name: Build with Maven
+        run: mvn clean package --batch-mode
+
+      - name: Upload Built Jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: RTPZone-Plugin-Jar
+          path: target/RTPZone-*.jar
+          retention-days: 30
