@@ -8,7 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.player.PlayerDeathEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -73,7 +73,7 @@ public class LandingListener implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
-        plugin.getCameraManager().cleanupPlayer(event.getPlayer());
-        plugin.getRtpManager().removePlayer(event.getPlayer().getUniqueId());
+        plugin.getCameraManager().cleanupPlayer(event.getEntity());
+        plugin.getRtpManager().removePlayer(event.getEntity().getUniqueId());
     }
 }
